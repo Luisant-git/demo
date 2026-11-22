@@ -133,16 +133,16 @@ export const ProductDetailView: React.FC = () => {
         </nav>
 
         {/* 2. Main Two-Column Showcase Area */}
-        <div className="bg-white rounded-3xl border border-gray-200/80 shadow-xs p-4 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="bg-white rounded-3xl border border-gray-200/80 shadow-xs p-3.5 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* ================= LEFT COLUMN: Image Gallery & Badges (5 cols) ================= */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          <div className="lg:col-span-5 flex flex-col items-center w-full">
             
             {/* Gallery: Vertical Thumbnails + Main View */}
-            <div className="flex flex-col sm:flex-row items-center w-full gap-4">
+            <div className="flex flex-col sm:flex-row items-center w-full gap-3 sm:gap-4">
               
-              {/* Vertical Thumbnail Strip */}
-              <div className="flex sm:flex-col items-center space-x-2 sm:space-x-0 sm:space-y-2 order-2 sm:order-1 flex-shrink-0">
+              {/* Vertical Thumbnail Strip (Sub-images) */}
+              <div className="flex sm:flex-col items-center justify-center space-x-2 sm:space-x-0 sm:space-y-2 order-2 sm:order-1 flex-shrink-0 w-full sm:w-auto py-1">
                 <button
                   onClick={() => setActiveImageIndex(prev => (prev > 0 ? prev - 1 : allImages.length - 1))}
                   className="hidden sm:flex w-7 h-7 rounded-full items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
@@ -151,12 +151,12 @@ export const ProductDetailView: React.FC = () => {
                   <ChevronUp className="w-4 h-4" />
                 </button>
 
-                <div className="flex sm:flex-col space-x-2 sm:space-x-0 sm:space-y-2.5 max-h-[380px] overflow-y-auto no-scrollbar">
+                <div className="flex sm:flex-col items-center justify-center space-x-2 sm:space-x-0 sm:space-y-2 max-h-[380px] max-w-full overflow-x-auto sm:overflow-y-auto no-scrollbar py-1">
                   {allImages.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl border-2 p-1 bg-white cursor-pointer transition-all flex items-center justify-center overflow-hidden ${
+                      className={`w-14 h-14 sm:w-16 sm:h-16 min-w-[56px] min-h-[56px] rounded-xl border-2 p-1 bg-white cursor-pointer transition-all flex items-center justify-center overflow-hidden flex-shrink-0 ${
                         activeImageIndex === idx
                           ? 'border-[#0070bb] shadow-sm ring-1 ring-[#0070bb]/20'
                           : 'border-gray-200 hover:border-gray-300'
@@ -164,8 +164,8 @@ export const ProductDetailView: React.FC = () => {
                     >
                       <img 
                         src={img} 
-                        alt={`View ${idx + 1}`} 
-                        className="max-h-full max-w-full object-contain pointer-events-none" 
+                        alt={`Sub image ${idx + 1}`} 
+                        className="w-full h-full object-contain pointer-events-none" 
                       />
                     </button>
                   ))}
@@ -181,7 +181,7 @@ export const ProductDetailView: React.FC = () => {
               </div>
 
               {/* Main Preview Box */}
-              <div className="flex-1 w-full h-[320px] sm:h-[420px] bg-white rounded-2xl border border-gray-100 p-4 relative flex items-center justify-center order-1 sm:order-2 group select-none">
+              <div className="flex-1 w-full h-[280px] sm:h-[360px] md:h-[420px] bg-white rounded-2xl border border-gray-100 p-3 sm:p-4 relative flex items-center justify-center order-1 sm:order-2 group select-none overflow-hidden">
                 
                 {/* Top-Left Exact Reliance Digital Badge */}
                 {product.badge && (
@@ -220,27 +220,27 @@ export const ProductDetailView: React.FC = () => {
                 <img
                   src={allImages[activeImageIndex]}
                   alt={product.name}
-                  className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="max-h-full max-w-full object-contain mx-auto transition-transform duration-300 group-hover:scale-105 pointer-events-none"
                 />
               </div>
 
             </div>
 
             {/* Bottom Trust Badges Strip (Exact Reliance Digital Style) */}
-            <div className="w-full mt-5 bg-[#f0f5fa] border border-blue-100/70 rounded-2xl p-3 sm:p-3.5 flex items-center justify-around text-[11px] sm:text-xs font-semibold text-gray-700">
-              <div className="flex items-center space-x-1.5 cursor-pointer hover:text-blue-700 transition-colors">
-                <RotateCcw className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                <span>Read Return Policy</span>
+            <div className="w-full mt-4 sm:mt-5 bg-[#f0f5fa] border border-blue-100/70 rounded-2xl p-2.5 sm:p-3.5 grid grid-cols-3 gap-1 sm:flex sm:items-center sm:justify-around text-[10px] sm:text-xs font-semibold text-gray-700 text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-1.5 cursor-pointer hover:text-blue-700 transition-colors">
+                <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
+                <span className="leading-tight">Read Return Policy</span>
               </div>
-              <div className="h-4 w-px bg-gray-300" />
-              <div className="flex items-center space-x-1.5">
-                <ShieldCheck className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                <span>Manufacturer Warranty 1 Year</span>
+              <div className="hidden sm:block h-4 w-px bg-gray-300" />
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-1.5 border-x border-gray-200 sm:border-x-0 px-1">
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
+                <span className="leading-tight">Manufacturer Warranty 1 Year</span>
               </div>
-              <div className="h-4 w-px bg-gray-300" />
-              <div className="flex items-center space-x-1.5">
-                <Truck className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                <span>Free Shipping</span>
+              <div className="hidden sm:block h-4 w-px bg-gray-300" />
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-1.5">
+                <Truck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
+                <span className="leading-tight">Free Shipping</span>
               </div>
             </div>
 
@@ -252,31 +252,33 @@ export const ProductDetailView: React.FC = () => {
             
             {/* Stock Alert Bar */}
             {product.inStock ? (
-              <div className="bg-[#e8f5e9] border border-green-200/90 rounded-xl px-3.5 py-2.5 flex items-center justify-between text-xs font-medium text-emerald-900 shadow-2xs">
-                <div className="flex items-center space-x-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse inline-block flex-shrink-0" />
-                  <span className="font-extrabold text-emerald-950 text-xs sm:text-sm">In Stock Online</span>
-                  <span className="text-gray-300 hidden sm:inline">|</span>
-                  <span className="text-emerald-800 text-[11px] sm:text-xs hidden sm:inline font-normal">
+              <div className="bg-[#e8f5e9] border border-green-200/90 rounded-2xl p-3 sm:px-3.5 sm:py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-2 text-xs font-medium text-emerald-900 shadow-2xs">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:space-x-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse inline-block flex-shrink-0" />
+                    <span className="font-extrabold text-emerald-950 text-xs sm:text-sm">In Stock Online</span>
+                    <span className="text-gray-300 hidden sm:inline">|</span>
+                  </div>
+                  <span className="text-emerald-800 text-[11px] sm:text-xs font-normal">
                     Ready for immediate dispatch & store pickup
                   </span>
                 </div>
                 <button
                   onClick={() => setIsStoreLocatorOpen(true)}
-                  className="inline-flex items-center space-x-1 border border-emerald-400 bg-white text-emerald-800 hover:bg-emerald-50 font-bold px-3 py-1 rounded-full text-[11px] shadow-2xs whitespace-nowrap cursor-pointer transition-colors"
+                  className="inline-flex items-center justify-center space-x-1 border border-emerald-400 bg-white text-emerald-800 hover:bg-emerald-50 font-bold px-3 py-1.5 sm:py-1 rounded-full text-[11px] shadow-2xs whitespace-nowrap cursor-pointer transition-colors w-full sm:w-auto self-start sm:self-auto"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                  <MapPin className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                   <span>Check Store Stock</span>
                 </button>
               </div>
             ) : (
-              <div className="bg-[#ffebee] border border-red-100 rounded-xl px-3.5 py-2 flex items-center justify-between text-xs font-medium text-red-700">
+              <div className="bg-[#ffebee] border border-red-100 rounded-2xl p-3 sm:px-3.5 sm:py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-medium text-red-700">
                 <span className="truncate pr-2">
                   Currently unavailable online. Visit nearest store.
                 </span>
                 <button
                   onClick={() => setIsStoreLocatorOpen(true)}
-                  className="inline-flex items-center space-x-1 border border-red-400 bg-white text-red-600 hover:bg-red-50 font-bold px-3 py-1 rounded-full text-[11px] shadow-2xs whitespace-nowrap cursor-pointer transition-colors"
+                  className="inline-flex items-center justify-center space-x-1 border border-red-400 bg-white text-red-600 hover:bg-red-50 font-bold px-3 py-1.5 sm:py-1 rounded-full text-[11px] shadow-2xs whitespace-nowrap cursor-pointer transition-colors w-full sm:w-auto"
                 >
                   <MapPin className="w-3.5 h-3.5 text-red-600" />
                   <span>Store Locator</span>
@@ -285,9 +287,9 @@ export const ProductDetailView: React.FC = () => {
             )}
 
             {/* Badge & Compare Header (Reliance Digital Exact Teal Badge) */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <div className="inline-block">
-                <span className="bg-[#01b6ae] text-white text-[10px] sm:text-[11px] font-extrabold px-3.5 py-1 rounded-tl-lg rounded-br-2xl shadow-xs uppercase tracking-wider inline-flex items-center select-none leading-tight">
+                <span className="bg-[#01b6ae] text-white text-[10px] sm:text-[11px] font-extrabold px-3 sm:px-3.5 py-1 rounded-tl-lg rounded-br-2xl shadow-xs uppercase tracking-wider inline-flex items-center select-none leading-tight">
                   {product.badge || 'NEW LAUNCH'}
                 </span>
               </div>
@@ -315,7 +317,7 @@ export const ProductDetailView: React.FC = () => {
             </div>
 
             {/* Product Full Title */}
-            <h1 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-snug">
+            <h1 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-gray-950 leading-snug">
               {product.name}
             </h1>
 
@@ -323,7 +325,7 @@ export const ProductDetailView: React.FC = () => {
             <div className="space-y-1 pt-1">
               <div className="flex items-baseline space-x-2">
                 <span className="text-xs font-semibold text-gray-500">Deal Price</span>
-                <span className="text-2xl sm:text-3xl font-extrabold text-gray-950">
+                <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-950">
                   ₹{product.price.toLocaleString('en-IN')}.00
                 </span>
               </div>
@@ -335,14 +337,14 @@ export const ProductDetailView: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-baseline space-x-2 text-xs">
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-xs">
                 <span className="text-gray-400">MRP </span>
                 <span className="line-through text-gray-400">
                   ₹{product.mrp.toLocaleString('en-IN')}.00
                 </span>
                 <span className="text-gray-400 font-normal">(inclusive of all taxes)</span>
                 {product.discountPercent > 0 && (
-                  <span className="font-extrabold text-emerald-600 text-sm ml-1">
+                  <span className="font-extrabold text-emerald-600 text-xs sm:text-sm ml-1">
                     {product.discountPercent}% OFF
                   </span>
                 )}
@@ -350,7 +352,7 @@ export const ProductDetailView: React.FC = () => {
             </div>
 
             {/* No Cost EMI Callout */}
-            <div className="bg-[#e8f5e9] border border-green-200/70 rounded-xl px-3.5 py-2 text-xs font-bold text-green-900 inline-block w-full">
+            <div className="bg-[#e8f5e9] border border-green-200/70 rounded-xl px-3.5 py-2 text-[11px] sm:text-xs font-bold text-green-900 inline-block w-full">
               No Cost EMI Available from ₹{emiPerMonth.toLocaleString('en-IN')} /- per month.
             </div>
 
@@ -358,7 +360,7 @@ export const ProductDetailView: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:space-x-3 pt-2">
               <button
                 onClick={scrollToSimilar}
-                className="hidden sm:block flex-1 py-3 px-4 rounded-full border border-gray-300 hover:border-gray-400 text-gray-800 text-xs sm:text-sm font-bold bg-white transition-all shadow-2xs hover:bg-gray-50 cursor-pointer text-center"
+                className="w-full sm:flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl sm:rounded-full border border-gray-300 hover:border-gray-400 text-gray-800 text-xs sm:text-sm font-bold bg-white transition-all shadow-2xs hover:bg-gray-50 cursor-pointer text-center"
               >
                 Similar Products
               </button>
@@ -473,10 +475,10 @@ export const ProductDetailView: React.FC = () => {
 
             {/* Pincode & Delivery Availability Checker */}
             <div className="pt-2">
-              <form onSubmit={handleCheckPincode} className="bg-gray-50/80 rounded-2xl p-3.5 border border-gray-200/70 space-y-2">
-                <div className="flex items-center justify-between text-xs font-bold text-gray-800">
+              <form onSubmit={handleCheckPincode} className="bg-gray-50/80 rounded-2xl p-3 sm:p-3.5 border border-gray-200/70 space-y-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs font-bold text-gray-800 gap-1">
                   <div className="flex items-center space-x-1.5">
-                    <MapPin className="w-4 h-4 text-[#e42529]" />
+                    <MapPin className="w-4 h-4 text-[#e42529] flex-shrink-0" />
                     <span>Delivery Options & Pincode Availability</span>
                   </div>
                   <span className="text-[11px] font-normal text-gray-500">
@@ -491,20 +493,20 @@ export const ProductDetailView: React.FC = () => {
                     value={pinInput}
                     onChange={(e) => setPinInput(e.target.value.replace(/\D/g, ''))}
                     placeholder="Enter 6-digit Pincode"
-                    className="bg-white border border-gray-300 rounded-xl px-3 py-1.5 text-xs text-gray-800 font-mono outline-none focus:border-[#e42529] flex-1"
+                    className="bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs text-gray-800 font-mono outline-none focus:border-[#e42529] flex-1"
                   />
                   <button
                     type="submit"
-                    className="bg-[#002b5e] hover:bg-[#001e42] text-white text-xs font-bold px-4 py-1.5 rounded-xl transition-colors cursor-pointer"
+                    className="bg-[#002b5e] hover:bg-[#001e42] text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors cursor-pointer"
                   >
                     Check
                   </button>
                 </div>
 
                 {pinSuccess && (
-                  <div className="flex items-center space-x-2 text-[11px] text-emerald-700 font-semibold pt-0.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-                    <span>
+                  <div className="flex items-start sm:items-center space-x-2 text-[11px] text-emerald-700 font-semibold pt-0.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5 sm:mt-0" />
+                    <span className="leading-tight">
                       Standard Delivery in {pincodeInfo.standardDays} Day{pincodeInfo.standardDays > 1 ? 's' : ''} (Free) • 
                       {pincodeInfo.isExpressAvailable ? ' ⚡ Express Same-Day Eligible' : ' Doorstep ResQ Setup Included'}
                     </span>

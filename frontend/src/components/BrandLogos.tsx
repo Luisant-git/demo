@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
 import { ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
 
 export const BrandLogos: React.FC = () => {
   const { setSelectedCategory, setViewMode } = useShop();
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const brands = [
     { 
@@ -69,17 +68,86 @@ export const BrandLogos: React.FC = () => {
     },
   ];
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const offset = direction === 'left' ? -300 : 300;
-      scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+  const [itemsPerPage, setItemsPerPage] = useState<number>(6);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Responsive itemsPerPage calculation
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setItemsPerPage(6);
+      } else if (width >= 640) {
+        setItemsPerPage(4);
+      } else if (width >= 360) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(2);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const totalPages = Math.ceil(brands.length / itemsPerPage);
+
+  // Keep currentPage valid when itemsPerPage changes
+  useEffect(() => {
+    if (currentPage >= totalPages && totalPages > 0) {
+      setCurrentPage(0);
     }
+  }, [totalPages, currentPage]);
+
+  // Auto-play carousel timer (advances every 4 seconds)
+  useEffect(() => {
+    if (isPaused || totalPages <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentPage((prev) => (prev + 1) % totalPages);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isPaused, totalPages]);
+
+  const nextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 40;
+    const isRightSwipe = distance < -40;
+    if (isLeftSwipe) nextPage();
+    if (isRightSwipe) prevPage();
   };
 
   const handleBrandClick = (_brandFilter: string) => {
     setSelectedCategory('all');
     setViewMode('catalog');
   };
+
+  // Chunk brands into pages
+  const pages: (typeof brands)[] = [];
+  for (let i = 0; i < brands.length; i += itemsPerPage) {
+    pages.push(brands.slice(i, i + itemsPerPage));
+  }
 
   return (
     <section className="max-w-[1360px] mx-auto px-4 py-8">
@@ -96,52 +164,83 @@ export const BrandLogos: React.FC = () => {
         </p>
       </div>
 
-      {/* Strip matching user screenshot exact theme with ONLY images (no bottom titles) */}
-      <div className="bg-[#f5f5f5] rounded-3xl p-4 sm:p-6 border border-gray-200/60 shadow-xs relative group">
-        
+      {/* Interactive Carousel Container */}
+      <div 
+        className="bg-[#f5f5f5] rounded-3xl p-3 sm:p-5 md:p-6 border border-gray-200/60 shadow-xs relative group select-none overflow-hidden"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Left Arrow Button */}
         <button
-          onClick={() => scroll('left')}
-          className="absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          onClick={prevPage}
+          className="absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-85 group-hover:opacity-100 hover:scale-105"
           aria-label="Previous Brands"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
-        {/* Scrollable Track - Showing ONLY the squircle brand images */}
-        <div 
-          ref={scrollRef}
-          className="flex space-x-4 sm:space-x-6 overflow-x-auto no-scrollbar scroll-smooth py-3 px-2 items-center"
-        >
-          {brands.map((brand, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleBrandClick(brand.filterName)}
-              title={brand.name}
-              className="flex items-center justify-center flex-shrink-0 cursor-pointer select-none transition-all duration-300 hover:-translate-y-1.5 hover:scale-105"
-            >
-              {/* Brand squircle image tile - full without cutoff */}
-              <div className="w-[102px] h-[106px] sm:w-[114px] sm:h-[118px] flex items-center justify-center">
-                <img
-                  src={brand.image}
-                  alt={brand.name}
-                  className="w-full h-full object-contain pointer-events-none"
-                  loading="lazy"
-                />
+        {/* Carousel Slide Track */}
+        <div className="overflow-hidden w-full px-7 sm:px-10">
+          <div 
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentPage * 100}%)` }}
+          >
+            {pages.map((page, pageIdx) => (
+              <div
+                key={pageIdx}
+                className="w-full flex-shrink-0 flex items-center justify-around sm:justify-center gap-2 sm:gap-4 md:gap-6 py-2"
+              >
+                {page.map((brand, bIdx) => (
+                  <div
+                    key={bIdx}
+                    onClick={() => handleBrandClick(brand.filterName)}
+                    title={brand.name}
+                    className="flex items-center justify-center cursor-pointer select-none transition-all duration-300 hover:-translate-y-1 hover:scale-105 active:scale-95"
+                  >
+                    <div className="w-[84px] h-[88px] sm:w-[104px] sm:h-[108px] md:w-[114px] md:h-[118px] flex items-center justify-center">
+                      <img
+                        src={brand.image}
+                        alt={brand.name}
+                        className="w-full h-full object-contain pointer-events-none drop-shadow-xs"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Right Arrow Button */}
         <button
-          onClick={() => scroll('right')}
-          className="absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          onClick={nextPage}
+          className="absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-85 group-hover:opacity-100 hover:scale-105"
           aria-label="Next Brands"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
+        {/* Carousel Pagination Indicator Dots */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center space-x-1.5 pt-3">
+            {Array.from({ length: totalPages }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentPage(idx)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  currentPage === idx 
+                    ? 'w-6 bg-[#e42529]' 
+                    : 'w-2 bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
