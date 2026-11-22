@@ -97,12 +97,12 @@ export const BrandLogos: React.FC = () => {
       </div>
 
       {/* Strip matching user screenshot exact theme with ONLY images (no bottom titles) */}
-      <div className="bg-[#f5f5f5] rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-gray-200/60 shadow-xs relative group">
+      <div className="bg-[#f5f5f5] rounded-3xl p-4 sm:p-6 border border-gray-200/60 shadow-xs relative group">
         
         {/* Left Arrow Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden sm:flex absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Previous Brands"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -111,7 +111,7 @@ export const BrandLogos: React.FC = () => {
         {/* Scrollable Track - Showing ONLY the squircle brand images */}
         <div 
           ref={scrollRef}
-          className="flex space-x-3 sm:space-x-6 overflow-x-auto no-scrollbar scroll-smooth py-2 sm:py-3 px-1 sm:px-2 items-center"
+          className="flex space-x-4 sm:space-x-6 overflow-x-auto no-scrollbar scroll-smooth py-3 px-2 items-center"
         >
           {brands.map((brand, idx) => (
             <div
@@ -121,7 +121,7 @@ export const BrandLogos: React.FC = () => {
               className="flex items-center justify-center flex-shrink-0 cursor-pointer select-none transition-all duration-300 hover:-translate-y-1.5 hover:scale-105"
             >
               {/* Brand squircle image tile - full without cutoff */}
-              <div className="w-[84px] h-[88px] sm:w-[114px] sm:h-[118px] flex items-center justify-center">
+              <div className="w-[102px] h-[106px] sm:w-[114px] sm:h-[118px] flex items-center justify-center">
                 <img
                   src={brand.image}
                   alt={brand.name}
@@ -136,7 +136,7 @@ export const BrandLogos: React.FC = () => {
         {/* Right Arrow Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden sm:flex absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Next Brands"
         >
           <ChevronRight className="w-5 h-5" />

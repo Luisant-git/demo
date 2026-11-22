@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-[1360px] mx-auto px-4">
         
         {/* Top Feature Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pb-8 border-b border-gray-800 text-xs">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pb-8 border-b border-gray-800 text-xs">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 bg-white/10 rounded-xl text-amber-400">
               <ShieldCheck className="w-5 h-5" />
@@ -117,14 +117,14 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Column 5: Newsletter */}
-          <div className="col-span-2 md:col-span-1 space-y-3 mt-2 md:mt-0">
+          <div className="space-y-3">
             <h4 className="font-bold text-white uppercase tracking-wider text-xs">
               Stay Connected
             </h4>
             <p className="text-[11px] text-gray-400">
               Subscribe for launch alerts and member exclusive discounts.
             </p>
-            <div className="flex max-w-sm">
+            <div className="flex">
               <input
                 type="email"
                 placeholder="Enter email"
@@ -146,14 +146,14 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-400 gap-3.5 text-center sm:text-left">
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[11px] text-gray-400 gap-4">
           <div>
             © 2026 <strong>Hello Computer Retail Limited</strong>. All rights reserved.
           </div>
 
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs font-medium text-gray-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-400">
             <span className="text-gray-400 text-[11px] sm:text-xs">Payment Options:</span>
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
+            <div className="flex flex-wrap items-center gap-1.5">
               {/* UPI */}
               <div className="bg-white rounded px-1.5 py-0.5 h-5 sm:h-5.5 flex items-center justify-center shadow-2xs hover:scale-105 transition-transform" title="UPI">
                 <img src="/payments/upi.svg" alt="UPI" className="h-3 sm:h-3.5 w-auto object-contain" />

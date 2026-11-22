@@ -66,12 +66,12 @@ export const FeaturedTabs: React.FC = () => {
       </div>
 
       {/* Product Carousel Slider Track (Exact Reliance Digital Style) */}
-      <div className="relative group px-1 mt-4 sm:mt-6">
+      <div className="relative group px-1 mt-6">
         
         {/* Left Arrow Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden sm:flex absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Previous Laptops"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -83,7 +83,7 @@ export const FeaturedTabs: React.FC = () => {
           className="flex space-x-2.5 sm:space-x-3.5 overflow-x-auto no-scrollbar scroll-smooth py-1 px-1"
         >
           {filteredProducts.map((product) => (
-            <div key={product.id} className="w-[155px] sm:w-[220px] md:w-[245px] flex-shrink-0">
+            <div key={product.id} className="w-[160px] sm:w-[220px] md:w-[245px] flex-shrink-0">
               <ProductCard product={product} />
             </div>
           ))}
@@ -92,7 +92,7 @@ export const FeaturedTabs: React.FC = () => {
         {/* Right Arrow Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden sm:flex absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Next Laptops"
         >
           <ChevronRight className="w-5 h-5" />

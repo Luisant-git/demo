@@ -97,10 +97,10 @@ export const MobileCategoryDrawer: React.FC = () => {
 
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 flex items-center justify-center text-white cursor-pointer transition-all shadow-xs border border-white/20"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer transition-colors"
             aria-label="Close menu"
           >
-            <X className="w-5 h-5 stroke-[2.75]" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 

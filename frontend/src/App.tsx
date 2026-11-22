@@ -37,7 +37,7 @@ const AppContent: React.FC = () => {
   }, [viewMode, selectedProduct?.id, selectedCategory, selectedSubcategory]);
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-[#f5f7fa] text-gray-900 selection:bg-red-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#f5f7fa] text-gray-900 selection:bg-red-500 selection:text-white">
       {/* 1. Header Stack (Reliance Digital Exact Layout) */}
       <TopUtilityBar />
       <MainHeader />

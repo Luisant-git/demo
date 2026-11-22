@@ -68,11 +68,9 @@ export const CartDrawer: React.FC = () => {
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 active:scale-95 flex items-center justify-center text-white transition-all cursor-pointer shadow-xs border border-white/20"
-              title="Close Cart"
-              aria-label="Close Shopping Cart"
+              className="p-1 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
-              <X className="w-5 h-5 stroke-[2.75]" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -101,13 +99,11 @@ export const CartDrawer: React.FC = () => {
             ) : (
               cart.map((item) => (
                 <div key={item.product.id} className="pt-3 flex space-x-3 items-start">
-                  <div className="w-20 h-20 sm:w-22 sm:h-22 rounded-xl border border-gray-200 p-1.5 flex-shrink-0 bg-white flex items-center justify-center shadow-2xs">
-                    <img
-                      src={item.product.image}
-                      alt={item.product.name}
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
+                  <img
+                    src={item.product.image}
+                    alt={item.product.name}
+                    className="w-16 h-16 object-contain rounded-xl border border-gray-100 p-1 flex-shrink-0 bg-white"
+                  />
 
                   <div className="flex-1 min-w-0">
                     <span className="text-[10px] font-bold text-gray-400 uppercase">

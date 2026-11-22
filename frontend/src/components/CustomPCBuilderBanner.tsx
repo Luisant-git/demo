@@ -7,7 +7,7 @@ export const CustomPCBuilderBanner: React.FC = () => {
 
   return (
     <section className="max-w-[1360px] mx-auto px-3 sm:px-4 py-4 sm:py-6">
-      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#18181b] text-white p-4 sm:p-7 lg:p-8 border border-neutral-800 shadow-md">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#18181b] text-white p-5 sm:p-7 lg:p-8 border border-neutral-800 shadow-md">
         
         {/* Subtle Ambient Glow with Custom Rig */}
         <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-15 pointer-events-none hidden lg:block overflow-hidden">

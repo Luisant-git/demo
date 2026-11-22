@@ -43,29 +43,29 @@ export const DealsOfTheDay: React.FC = () => {
     <section className="max-w-[1360px] mx-auto px-4 py-6">
       
       {/* Clean Deals Header */}
-      <div className="bg-white rounded-2xl p-3.5 sm:p-5 border border-gray-200/80 shadow-sm mb-4 sm:mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+      <div className="bg-white rounded-2xl p-5 border border-gray-200/80 shadow-sm mb-5 flex flex-col sm:flex-row items-center justify-between gap-4">
         
         <div className="flex items-center space-x-3">
-          <div className="p-2 bg-red-50 text-[#e42529] rounded-xl border border-red-100 flex-shrink-0">
-            <Flame className="w-5 h-5 sm:w-6 sm:h-6 fill-[#e42529]" />
+          <div className="p-2 bg-red-50 text-[#e42529] rounded-xl border border-red-100">
+            <Flame className="w-6 h-6 fill-[#e42529]" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h2 className="text-base sm:text-xl font-extrabold text-gray-900 uppercase tracking-tight">
+              <h2 className="text-lg sm:text-xl font-extrabold text-gray-900 uppercase tracking-tight">
                 Deals of the Day
               </h2>
-              <span className="bg-amber-100 text-amber-900 border border-amber-200 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full uppercase whitespace-nowrap">
+              <span className="bg-amber-100 text-amber-900 border border-amber-200 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
                 Flash Discounts
               </span>
             </div>
-            <p className="text-[11px] sm:text-xs text-gray-500 mt-0.5 leading-tight">
+            <p className="text-xs text-gray-500 mt-0.5">
               Handpicked laptops, desktops, gaming gear and flagship tech at special offer prices
             </p>
           </div>
         </div>
 
         {/* Clean Countdown Timer */}
-        <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start space-x-2 sm:space-x-3 bg-slate-50 px-3 sm:px-4 py-2 rounded-xl border border-slate-200">
+        <div className="flex items-center space-x-3 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
           <div className="flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
             <Clock className="w-4 h-4 text-[#e42529]" />
             <span>Offer Ends In:</span>
@@ -93,7 +93,7 @@ export const DealsOfTheDay: React.FC = () => {
         {/* Left Arrow Button */}
         <button
           onClick={() => scroll('left')}
-          className="hidden sm:flex absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -left-2 sm:-left-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Previous Laptops"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -105,7 +105,7 @@ export const DealsOfTheDay: React.FC = () => {
           className="flex space-x-2.5 sm:space-x-3.5 overflow-x-auto no-scrollbar scroll-smooth py-1 px-1"
         >
           {dealProducts.map((product) => (
-            <div key={product.id} className="w-[155px] sm:w-[220px] md:w-[245px] flex-shrink-0">
+            <div key={product.id} className="w-[160px] sm:w-[220px] md:w-[245px] flex-shrink-0">
               <ProductCard product={product} />
             </div>
           ))}
@@ -114,7 +114,7 @@ export const DealsOfTheDay: React.FC = () => {
         {/* Right Arrow Button */}
         <button
           onClick={() => scroll('right')}
-          className="hidden sm:flex absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
+          className="absolute -right-2 sm:-right-3.5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center text-gray-700 hover:text-black hover:shadow-lg transition-all cursor-pointer opacity-90 hover:opacity-100"
           aria-label="Next Laptops"
         >
           <ChevronRight className="w-5 h-5" />
