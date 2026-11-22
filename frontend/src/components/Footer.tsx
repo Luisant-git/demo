@@ -13,10 +13,12 @@ import {
 import { useShop } from '../context/ShopContext';
 
 export const Footer: React.FC = () => {
-  const { setSelectedCategory, setViewMode, setIsStoreLocatorOpen } = useShop();
+  const { setSelectedCategory, setViewMode, setIsStoreLocatorOpen, viewMode } = useShop();
 
   return (
-    <footer className="bg-[#111827] text-gray-300 pt-8 sm:pt-10 pb-24 md:pb-6 border-t-2 border-[#e42529] mt-8 sm:mt-12">
+    <footer className={`bg-[#111827] text-gray-300 pt-8 sm:pt-10 ${
+      viewMode === 'product-detail' ? 'pb-44 sm:pb-44' : 'pb-24'
+    } md:pb-6 border-t-2 border-[#e42529] mt-8 sm:mt-12`}>
       <div className="max-w-[1360px] mx-auto px-4">
         
         {/* Top Feature Bar */}

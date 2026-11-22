@@ -366,7 +366,7 @@ export const ProductDetailView: React.FC = () => {
               <div className="flex items-center space-x-2 w-full sm:flex-1">
                 <button
                   onClick={() => addToCart(product, 1)}
-                  className="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl sm:rounded-full bg-[#111827] hover:bg-[#1f2937] text-white text-xs sm:text-sm font-bold shadow-md transition-all cursor-pointer text-center"
+                  className="flex-1 py-3 sm:py-3.5 px-3 sm:px-4 rounded-xl sm:rounded-full bg-[#111827] hover:bg-[#1f2937] active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md transition-all cursor-pointer text-center"
                 >
                   {product.inStock ? 'Add to Cart' : 'Notify Me'}
                 </button>
@@ -374,9 +374,9 @@ export const ProductDetailView: React.FC = () => {
                 <button
                   onClick={handleBuyNow}
                   disabled={!product.inStock}
-                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl sm:rounded-full text-white text-xs sm:text-sm font-bold shadow-md transition-all cursor-pointer text-center whitespace-nowrap ${
+                  className={`flex-1 py-3 sm:py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-full text-white text-xs sm:text-sm font-bold shadow-md transition-all cursor-pointer text-center whitespace-nowrap ${
                     product.inStock 
-                      ? 'bg-[#e42529] hover:bg-[#c01519]' 
+                      ? 'bg-[#e42529] hover:bg-[#c01519] active:scale-95' 
                       : 'bg-gray-400 cursor-not-allowed'
                   }`}
                 >
@@ -627,25 +627,28 @@ export const ProductDetailView: React.FC = () => {
         </div>
 
         {/* Mobile Sticky Purchase Bar (Portrait Mobile Friendly) */}
-        <div className="sm:hidden fixed bottom-12 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2 flex items-center justify-between shadow-[0_-4px_16px_rgba(0,0,0,0.08)]">
-          <div>
-            <div className="text-[10px] text-gray-500 font-medium">Deal Price</div>
-            <div className="text-sm font-black text-gray-950">
+        <div 
+          className="sm:hidden fixed left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3.5 py-2.5 flex items-center justify-between shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
+          style={{ bottom: 'calc(49px + env(safe-area-inset-bottom, 0px))' }}
+        >
+          <div className="pr-2">
+            <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">Deal Price</div>
+            <div className="text-sm sm:text-base font-black text-gray-950 tracking-tight leading-tight">
               ₹{product.price.toLocaleString('en-IN')}.00
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <button
               onClick={() => addToCart(product, 1)}
-              className="py-2 px-3 rounded-xl bg-[#111827] hover:bg-[#1f2937] text-white text-xs font-bold shadow-xs cursor-pointer"
+              className="h-10 sm:h-11 px-3.5 sm:px-4 rounded-xl bg-[#111827] hover:bg-[#1f2937] active:scale-95 text-white text-xs sm:text-sm font-bold shadow-xs cursor-pointer flex items-center justify-center transition-all whitespace-nowrap"
             >
               Add to Cart
             </button>
             <button
               onClick={handleBuyNow}
               disabled={!product.inStock}
-              className={`py-2 px-3.5 rounded-xl text-white text-xs font-bold shadow-xs cursor-pointer ${
-                product.inStock ? 'bg-[#e42529]' : 'bg-gray-400 cursor-not-allowed'
+              className={`h-10 sm:h-11 px-4 sm:px-5 rounded-xl text-white text-xs sm:text-sm font-bold shadow-xs cursor-pointer flex items-center justify-center transition-all whitespace-nowrap ${
+                product.inStock ? 'bg-[#e42529] hover:bg-[#c01519] active:scale-95' : 'bg-gray-400 cursor-not-allowed'
               }`}
             >
               Buy Now
